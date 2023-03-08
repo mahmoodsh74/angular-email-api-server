@@ -1,0 +1,27 @@
+<form class="ui form container" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <h3>Create An Account</h3>
+  <app-input
+    [control]="f.get('username')"
+    label="username"
+    placeholder="please enter username">
+  </app-input>
+  <app-input
+    [control]="f.get('password')"
+    label="password"
+    type="password"
+    placeholder="please enter password">
+  </app-input>
+  <app-input
+    [control]="f.get('passwordConformation')"
+    label="password conformation"
+    type="password"
+    placeholder="please enter password conformation">
+  </app-input>
+ <ng-container *ngIf="showErrorPasswordDontMatch()">
+   <div class="ui pointing red basic label" *ngIf="form.hasError('passwordDontMatch')">
+     please enter the same  password
+   </div>
+ </ng-container>
+  <button class="ui button" style="margin-top: 10px" type="submit">Create Account</button>
+</form>
+{{form.controls?.username?.errors | json}}
