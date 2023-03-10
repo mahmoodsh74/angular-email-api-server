@@ -1,0 +1,12 @@
+<div class="ui inverted segment">
+  <div class="ui four menu item inverted secondary pointing">
+    <ng-container *ngIf="(authService.signedin$ | async);else signout">
+      <a class="item" routerLink="/inbox" routerLinkActive="active">Inbox</a>
+      <a class="item" routerLink="/signout" routerLinkActive="active">sign out</a>
+    </ng-container>
+    <ng-template #signout>
+      <a class="item" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">sign in</a>
+      <a class="item" routerLink="/signup" routerLinkActive="active">sign up</a>
+    </ng-template>
+  </div>
+</div>

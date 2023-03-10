@@ -1,2 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
 @import "semantic-ui-css/semantic.min.css";
+.mt-5{
+  margin-top: 5px;
+}
+.mt-10{
+  margin-top: 10px;
+}
+.m-5{
+  margin: 5px;
+}
+.mt-20{
+  margin: 20px;
+}

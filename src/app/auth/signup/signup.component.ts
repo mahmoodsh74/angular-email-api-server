@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {MatchPasswordService} from "../../_validators/match-password.service";
 import {UniqueUsernameService} from "../../_validators/unique-username.service";
+import {AuthService} from "../../_services/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-signup',
@@ -10,7 +12,12 @@ import {UniqueUsernameService} from "../../_validators/unique-username.service";
 })
 export class SignupComponent implements OnInit {
 
-  constructor(private matchPassword: MatchPasswordService, private uniqueUsername: UniqueUsernameService) {
+  constructor(
+    private matchPassword: MatchPasswordService,
+    private uniqueUsername: UniqueUsernameService,
+    private authService: AuthService,
+    private router:Router
+  ) {
   }
 
   form = new FormGroup({
@@ -40,7 +47,20 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.form.value);
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+    // @ts-ignore
+    this.authService.signup(this.form.value).subscribe((response) => {
+     this.router?.navigate(['/inbox']);
+    }, (error) => {
+      if (!error.status) {
+        this.form.setErrors({noConnection: true});
+      } else {
+        this.form.setErrors({unknownError: true});
+      }
+    })
   }
 
   showErrorPasswordDontMatch() {

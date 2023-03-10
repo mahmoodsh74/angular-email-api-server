@@ -1,1 +1,44 @@
-<p>signin works!</p>
+<form class="ui form container mt-20" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <h3>Login Component</h3>
+
+  <app-input [control]="f.get('username')" label="username"></app-input>
+
+  <app-input
+    [control]="f.get('password')"
+    label="password"
+    type="password"
+    placeholder="please enter password"
+  ></app-input>
+  <ng-container *ngIf="showErrorPasswordDontMatch()">
+    <div
+      class="row ui pointing red basic label"
+      style="margin-bottom: 5px"
+      *ngIf="form.hasError('noConnection')"
+    >
+      please check your network
+    </div>
+    <div
+      class="row ui pointing red basic label"
+      style="margin-bottom: 5px"
+      *ngIf="form.hasError('credential')"
+    >
+      username or password is incorrect
+    </div>
+    <div
+      class="row ui pointing red basic label"
+      style="margin-bottom: 5px"
+      *ngIf="form.hasError('unknownError')"
+    >
+      unknownError
+    </div>
+  </ng-container>
+
+  <button
+    [disabled]="form.invalid"
+    class="inline-field row ui button green"
+    style="margin-top: 5px; display: block"
+    type="submit"
+  >
+    Login
+  </button>
+</form>
